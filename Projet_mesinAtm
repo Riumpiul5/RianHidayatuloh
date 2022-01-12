@@ -1,0 +1,132 @@
+#include <iostream>
+using namespace std;
+
+void header (){
+	cout<<"\t=====================================\n";
+	cout<<"		ATM BRI BARAYA		\n";
+	cout<<"\t=====================================\n";
+}
+
+void footer (){
+	cout<<"\t================================================\n";
+	cout<<"		Terima Kasih Telah Berkunjung!\n";
+	cout<<"\n\t	Silahkan Cek Kembali Uang Anda\n";
+	cout<<"\t==============================================\n";
+}
+
+
+class pin {
+	private :
+		int kode_pin(){
+			return 567567;
+		}
+	public :
+		int config_pin(){
+			return kode_pin();
+		}
+		char* nama (){
+			return (char*) " user 01";
+		}
+};
+
+int main (){
+	int saldo_awal = 500000,pin_input,tarik,setor,kode;
+	pin kode_pin;
+	
+	header();
+	
+	cout<<"Silahkan Masukkan Pin Anda : ";
+	cin>>pin_input;
+	menu :
+		if(pin_input==kode_pin.config_pin()){
+			cout<<"\n Selamat Datang , " <<kode_pin.nama()<<"\n\n";
+			cout<<"Pilihan Menu :\n";
+			cout<<"1. Tarik Tunai \n2. Setor Tunai \n3. Cek Saldo\n4. Keluar\n\n";
+			cout<<"Masukkan Kode Menu : ";
+			cin>>kode;
+			switch(kode){
+			case 1 :
+			tarik :
+			cout<<"\n===================================\n"
+				<<"Tarik Tunai\n"
+				<<"====================================\n";
+			cout<<"Masukkan Uang Yang Ingin Anda Ambil : ";
+			cin>>tarik;
+				if(tarik%50000!=0 || tarik<0){
+					cout<<"Masukkan Total Uang Dengan Pecahan 50000\n";
+					system("pause");
+					system("cls");
+					header();
+					goto tarik;
+				}
+				else{
+					if(tarik > saldo_awal){
+						cout<<"saldo tidak mencukupi \n";
+					}
+					else{
+					saldo_awal -= tarik;
+					cout<<"==================================\n";
+					cout<<"Hitung Kemabali Uang Yang Anda Ambil \n";
+					cout<<"Total Saldo Kamu Sekarang , "<<saldo_awal<<endl;
+					cout<<"==================================\n";
+					}
+					system("pause");
+					system("cls");
+					header();
+					goto menu;
+				}
+				break;
+				case 2 :
+					setor :
+					cout<<"\n==================================\n"
+						<<"Setor Tunai\n"
+						<<"====================================\n";
+					cout<<"Masukkan Uang Yang Ingin Anda Setor : ";
+					cin>>setor;
+					if(setor%50000!=0 || setor<0){
+					cout<<"Masukkan Total Uang Dengan Pecahan 50000\n";
+					system("pause");
+					system("cls");
+					header();
+					goto setor;
+				}
+					else{
+					saldo_awal += setor;
+					cout<<"===================================\n";
+					cout<<"Total Saldo Anda Sekarang , "<<saldo_awal<<endl;
+					cout<<"===================================\n";
+					system("pause");
+					system("cls");
+					header();
+					goto menu;	
+				}
+				break;
+				case 3 :
+					cout<<"\n==================================\n"
+						<<"Cek Saldo\n"
+						<<"====================================\n";
+					cout<<"Total Saldo Anda Sekarang , "<<saldo_awal<<endl;
+					cout<<"====================================\n";
+					system("pause");
+					system("cls");
+					header();
+					goto menu;
+				break;
+				case 4 :
+					footer();
+				break;
+				default :
+					cout<<"\nKode Yang Anda Pilih Kosong , \nPastikan Kode Yang Anda Masukkan Benar\n";
+					system("pause");
+					system("cls");
+					header();
+					goto menu;
+				break;
+				}	
+			}
+				else{
+					cout<<"\n===================================\n";
+					cout<<"Pin Yang Anda Masukkan Salah\n";
+					cout<<"=====================================\n";
+				}
+}
